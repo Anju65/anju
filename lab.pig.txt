@@ -1,0 +1,9 @@
+--CREATING A RELATION BY LOADING USER DATA FILE
+users = LOAD '/user/maria_dev/employee.csv' 
+USING PigStorage(',') 
+AS (empname:chararray, empid:int, age:int, designation:chararray);
+
+
+--LOADING THE USERS IN HBASE TABLE
+STORE users INTO 'hbase://users' 
+USING org.apache.pig.backend.hadoop.hbase.HBaseStorage ('empinfo:empname,empinfo:empid,empinfo:age,empinfo:designation');
